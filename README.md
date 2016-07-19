@@ -176,7 +176,7 @@ Sample request and response event handlers
 ```
 Future roadmap
 ============
-* Implement Digest/Windows(NTLM/Kerberos) authentication over HTTP protocols for windows domain
+* Implement Digest/Windows(NTLM/Kerberos) authentication over HTTP protocols
 * Add Socks external proxy support
 * Support Server Name Indication (SNI) for transparent endpoints
 * Support HTTP 2.0 
