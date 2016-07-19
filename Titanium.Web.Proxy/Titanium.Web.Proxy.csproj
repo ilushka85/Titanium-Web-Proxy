@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\Interop\SecurityContext.cs" />
+    <Compile Include="Authentication\WindowsAuthHelper.cs" />
     <Compile Include="CertificateHandler.cs" />
     <Compile Include="Compression\CompressionFactory.cs" />
     <Compile Include="Compression\DeflateCompression.cs" />
