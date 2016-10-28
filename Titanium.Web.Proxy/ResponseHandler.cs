@@ -246,9 +246,15 @@ namespace Titanium.Web.Proxy
 
             if (clientStreamWriter != null)
             {
-                clientStreamWriter.Close();
+                try
+                {
+                    clientStreamWriter.Close();
+                }
+                catch { }
+
                 clientStreamWriter.Dispose();
             }
+
         }
     }
 }
