@@ -40,27 +40,31 @@ namespace Titanium.Web.Proxy.Helpers
 	            var lastChar = default(char);
 	            var buffer = new byte[1];
 
-	            while ((await this.stream.ReadAsync(buffer, 0, 1)) > 0)
-	            {
-		            //if new line
-		            if (lastChar == '\r' && buffer[0] == '\n')
-		            {
-			            var result = readBuffer.ToArray();
-			            return  encoding.GetString(result.SubArray(0, result.Length - 1));
-		            }
-		            //end of stream
-		            if (buffer[0] == '\0')
-		            {
-			            return encoding.GetString(readBuffer.ToArray());
-		            }
+                try
+                {
+                    while ((await this.stream.ReadAsync(buffer, 0, 1)) > 0)
+                    {
+                        //if new line
+                        if (lastChar == '\r' && buffer[0] == '\n')
+                        {
+                            var result = readBuffer.ToArray();
+                            return encoding.GetString(result.SubArray(0, result.Length - 1));
+                        }
+                        //end of stream
+                        if (buffer[0] == '\0')
+                        {
+                            return encoding.GetString(readBuffer.ToArray());
+                        }
 
-		            await readBuffer.WriteAsync(buffer,0,1);
+                        await readBuffer.WriteAsync(buffer, 0, 1);
 
-		            //store last char for new line comparison
-		            lastChar = (char)buffer[0];
-	            }
+                        //store last char for new line comparison
+                        lastChar = (char)buffer[0];
+                    }
+                }
+                catch (ObjectDisposedException) { } // Suppresses an exception that sometimes occurs when calling this.stream.ReadAsync
 
-	            return encoding.GetString(readBuffer.ToArray());
+                return encoding.GetString(readBuffer.ToArray());
             }
         }
 
